@@ -1,0 +1,16 @@
+# Critical Winlogbeat Configuration for Real-Time Lab Telemetry
+# Located at: C:\Program Files\Winlogbeat\winlogbeat.yml
+
+winlogbeat.event_logs:
+  - name: Microsoft-Windows-Sysmon/Operational
+    ignore_older: 72h
+
+output.file:
+  path: "Z:\DFIR_LOGS"
+  filename: sysmon
+  rotate_every_kb: 10000
+  number_of_files: 7
+
+#Real Time Settings For lab Purposes
+  flush_interval: 1s
+  bulk_max_size: 1      
