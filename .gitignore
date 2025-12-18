@@ -1,0 +1,26 @@
+# --- Python Internals ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+env/
+
+# --- Logs & Data (CRITICAL) ---
+# Never upload raw event logs or detection outputs
+*.ndjson
+*.json
+*.log
+*.txt
+!docs/detection_log.txt  # Exception: Keep your proof-of-work example
+
+# --- Secrets & Environment ---
+.env
+.bashrc
+.history
+
+# --- OS & Editor Junk ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
