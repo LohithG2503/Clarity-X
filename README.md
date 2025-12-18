@@ -24,23 +24,38 @@ Clarity-X is not a traditional detection engine; it is a **Reasoning Layer**. It
 
 ```mermaid
 graph TD
+    %% --- VICTIM ZONE (Red) ---
     subgraph Victim_Environment [Windows Victim VM]
         A[Sysmon] -->|Writes JSON| B(Winlogbeat)
-        B -->|Flush 1s| C{VirtualBox Shared Folder}
+        B -->|Flush 1s| C{Shared Folder}
     end
 
+    %% --- ANALYST ZONE (Blue) ---
     subgraph Analyst_Environment [SIFT Workstation]
-        C -->|Reads Real-time| D[ClarityX Engine]
+        C -->|Reads Stream| D[ClarityX Engine]
         D -->|State Tracking| D
         D -->|Detects Sequence| E[Groq API Client]
     end
 
-    subgraph Cloud_AI [Groq Cloud]
-        E -->|POST JSON Context| F((LLM Inference))
-        F -->|Return Analysis| E
+    %% --- CLOUD ZONE (Purple) ---
+    subgraph Cloud_AI [Groq Cloud API]
+        E -.->|POST Context| F((LLM Inference))
+        F -.->|Return Verdict| E
     end
 
-    E -->|Output| G[Intelligence Report]
+    %% --- OUTPUT ---
+    E ==>|Generates| G[> Intelligence Report <]
+
+    %% --- STYLING ---
+    classDef victim fill:#ffdddd,stroke:#ff5555,stroke-width:2px;
+    classDef analyst fill:#e6f7ff,stroke:#1890ff,stroke-width:2px;
+    classDef cloud fill:#f9f0ff,stroke:#722ed1,stroke-width:2px;
+    classDef output fill:#fffbe6,stroke:#faad14,stroke-width:2px,stroke-dasharray: 5 5;
+
+    class A,B,C victim;
+    class D,E analyst;
+    class F cloud;
+    class G output;
 ```
 
 - **Sensor**: A Windows 11 environment instrumented with Sysmon and Winlogbeat, configured for 1-second log flushing to enable real-time event streaming.
