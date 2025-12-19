@@ -3,6 +3,8 @@
 ![Python](https://img.shields.io/badge/python-v3.8+-yellow.svg)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 
+![Clarity-X Showcase](docs/Clarity-X.png)
+
 Clarity-X is a reasoning layer that sits between raw Sysmon logs and a security analyst. It acts as a cognitive filter, using a state machine to track process behavior and escalating suspicious activity to a Large Language Model (LLM) for analysis. Its primary goal is to reduce alert fatigue by distinguishing malicious activity from benign system noise.
 
 ## The Problem
